@@ -6,7 +6,7 @@ from django.utils import timezone
 
 
 class Place(models.Model):
-    place_name=models.CharField(max_length=200)
+    place_name=models.CharField(max_length=200,primary_key=True)
     longtitude=models.DecimalField(default=0,max_digits=10,decimal_places=6)
     latitude = models.DecimalField(default=0,max_digits=10,decimal_places=6)
 
@@ -40,5 +40,9 @@ class Time(models.Model):
     time_begin=models.TimeField(default=timezone.now)
     time_end=models.TimeField(default=timezone.now)
     people=models.ForeignKey(People)
+
+    def __str__(self):
+        return self.DAY_IN_WEEK,self.time_begin,self.time_end
+
 
 
