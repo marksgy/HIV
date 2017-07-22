@@ -41,8 +41,7 @@ class Time(models.Model):
     time_end=models.TimeField(default=timezone.now)
     people=models.ForeignKey(People)
 
-    def __str__(self):
-        return self.DAY_IN_WEEK,self.time_begin,self.time_end
+
 
 
 
