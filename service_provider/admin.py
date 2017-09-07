@@ -10,7 +10,7 @@ class TimeInLine(admin.TabularInline):
 
 class PeopleAdmin(admin.ModelAdmin):
     inlines = [TimeInLine]
-    list_display = ('people_name','tel_num','place_name')
+    list_display = ('name','tel','place_name')
     list_filter = ['place__place_name']
 
     def place_name(self,obj):
