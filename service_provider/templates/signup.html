@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-S7YMK1xjUjSpEnF4P8hPUcgjXYLZKK3fQW1j5ObLSl787II9p8RO9XUGehRmKsxd" crossorigin="anonymous">
+	<!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.8.0/js/md5.js"></script>
+    <script src="https://cdn.bootcss.com/Cookies.js/1.2.1/cookies.js"></script>
+    <script >
+        function password() {
+            var name = document.getElementById("userName").value;
+            var psd = document.getElementById("psd").value;
+            var confirm = document.getElementById("confirm").value;
+            if (name==""||psd==""||confirm==""){
+                document.getElementById("text").innerHTML = "请完成输入";
+            } else if(psd == confirm) {
+                var psdEncode = md5(psd, name);
+                document.getElementById("psdEncode").value=psdEncode;
+                document.getElementById("myForm").submit();
+
+            }else{
+                document.getElementById("text").innerHTML = "两次输入的密码不相同";
+            }
+
+        }
+
+            function tel(str) {
+                var xmlhttp;
+
+                var csrftoken = Cookies.get('csrftoken');
+                if (str.length < 11) {
+                    document.getElementById("text").innerHTML = "&nbsp";
+                    document.getElementById("submit").disabled="true";
+                    return;
+                }
+                if (window.XMLHttpRequest) {
+                    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                    xmlhttp = new XMLHttpRequest();
+                }
+                else {
+                    // IE6, IE5 浏览器执行代码
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        var obj = JSON.parse(xmlhttp.responseText);
+                        var check_code = obj["check_code"];
+                        if (check_code == 0) {
+                            document.getElementById("text").innerHTML = "您不是检测员，请不要注册";
+                            document.getElementById("sb").disabled="true";
+                        } else if (check_code==1){
+                            document.getElementById("text").innerHTML = "&nbsp";
+                            document.getElementById("sb").disabled=false;
+                        }else {
+                            document.getElementById("text").innerHTML = "您已经注册过了，请勿重复注册";
+                            document.getElementById("sb").disabled="true";
+                        }
+                    }
+                }
+                xmlhttp.open("POST", "../signup/", true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.setRequestHeader("X-CSRFToken", csrftoken);
+                xmlhttp.send("tel=" + str);
+        }
+
+
+    </script>
+
+	<style type="text/css">
+		.myLabel{
+			padding-top: 11px;
+			text-align: right;
+		}
+		.myDiv{
+			position: relative;
+			top: 100px;
+		}
+		.myImage{
+            position: relative;
+			width: 150px;
+			height: 150px;
+			top: 50px;
+            left: 50%;
+            margin-left: -75px;
+		}
+	</style>
+
+</head>
+<body>
+	<img src="/static/logo.png" class="myImage">
+	<form class="form-horizontal container myDiv" autocomplete="on"  id="myForm" action="../sign/" method="post">
+        {% csrf_token %}
+		<div class="form-group" name='userName'>
+			<label for="userName" class="col-xs-3 myLabel">电话</label>
+			<div class=" col-xs-9">
+				<input type="tel" name="userName" id="userName" class="form-control" placeholder="电话号码即为用户名" onchange="tel(this.value)">
+			</div>
+		</div>
+		<div class="form-group" name='psd'>
+			<label for="psd" class="col-xs-3 myLabel">密码</label>
+			<div class="col-xs-9">
+				<input type="password" id="psd" class="form-control" placeholder="请输入密码">
+                <input type="hidden" id="psdEncode" name="psdEncode">
+			</div>
+		</div>
+		<div class="form-group" name='confirm'>
+			<label for="psd" class="col-xs-3 myLabel">确认密码</label>
+			<div class="col-xs-9">
+				<input type="password" id="confirm" class="form-control" placeholder="请再次输入密码">
+			</div>
+		</div>
+        <p class="text-danger" id="text" align="right">&nbsp</p>
+
+
+		<div class="form-group" name="login" style="margin-top: 20px">
+			<button type="button" class="btn-success btn " style="margin-left:  5%;margin-right: 1%; width: 44%;"  id="sb" onclick="password()" >确定</button>
+            <a class="btn-primary btn " style="margin-left:  1%;width: 44%;" href="../login" >返回</a>
+
+		</div>
+	</form>
+</body>
+</html>

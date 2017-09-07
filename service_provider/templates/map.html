@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>预约</title>
+	<script src="http://api.map.baidu.com/getscript?v=2.0&ak=D5DDBvBQxy9vie3fQd9T26si31u8tlIy" type="text/javascript"></script>
+	<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>  
+	<script src="/static/map/iscroll.js"></script>
+	<script type="text/javascript" src="/static/map/text.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="/static/map/text1.css" type="text/css" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  </head>
+  <body>
+   <div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="tabbable" id="tabs-845697">
+				<ul class="nav nav-tabs">
+					<li style="width:50%">
+						 <a href="#panel-126114" data-toggle="tab tab-cls">时间</a>
+					</li>
+					<li class="active" style="width:50%">
+						 <a href="#panel-551621" data-toggle="tab tab-cls">地点</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane">
+						 <div class="wrap">
+   						 <div class=""></div>
+   						 <div class="item">
+       					 	<ul>
+								<li></li>
+								<li>1</li>
+								<li>2</li>
+								<li class="selected">3</li>
+								<li>4</li>
+								<li>5</li>
+								<li>5</li>
+								<li>5</li>
+								<li>5</li>
+								<li></li>
+        				 	</ul>
+    					</div>
+   					  <div class="item">
+   	    			  	 <ul>
+            					<li></li>
+       				  	</ul>
+    				 </div>
+				</div>
+					</div>
+					<div class="tab-pane active" id="panel-551621">
+					<form action="" method="post" class="city-choose">
+			<label>
+			<input id="city" type="text" name="city" placeholder="Your City" />
+			<button type="button" class="btn btn-primary btn-lg btn-cls">
+				<span class="glyphicon glyphicon-search" style="float:right;"> </span>
+			</button>
+			</label>
+			 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="jumbotron">
+			<div id="map">
+			</div>
+			</div>
+			<div class="row clearfix">
+				<div class="col-xs-4 column">
+					 <button type="button" class="btn btn-primary btn-lg btn-cls" >
+						 <span class="glyphicon glyphicon-chevron-left"></span></button>
+				</div>
+				<div class="col-xs-4 column" align="center">
+					 <button type="button" class="btn btn-primary btn-lg ">跳过</button>
+				</div>
+				<div class="col-xs-4 column" align="right">
+					 <button type="button" class="btn btn-primary btn-lg btn-cls">
+						 <span class="glyphicon glyphicon-chevron-right"></span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>
+

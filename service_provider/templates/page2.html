@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-S7YMK1xjUjSpEnF4P8hPUcgjXYLZKK3fQW1j5ObLSl787II9p8RO9XUGehRmKsxd" crossorigin="anonymous">
+    <!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <script src="https://cdn.bootcss.com/Cookies.js/1.2.1/cookies.js"></script>
+    <style type="text/css">
+        .myLabel {
+            padding-top: 11px;
+            text-align: left;
+        }
+
+        .myRadio {
+            padding-top: 11px;
+        }
+
+        .myDiv {
+            position: relative;
+            top: 25px;
+        }
+
+        .myImage {
+            position: relative;
+            width: 25%;
+            height: 25%;
+            top: 1px;
+            left: 50%;
+            margin-left: -12.5%;
+        }
+    </style>
+    <script>
+        var num = 60;
+        function confirmTimer() {
+            document.getElementById('confirmButton').disabled = "true";
+            var str = document.getElementById('tel').value;
+            if (num == 60) {
+                var xmlhttp;
+
+                var csrftoken = Cookies.get('csrftoken');
+                if (window.XMLHttpRequest) {
+                    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                    xmlhttp = new XMLHttpRequest();
+                }
+                else {
+                    // IE6, IE5 浏览器执行代码
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.open("POST", "../sendmsg/", true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.setRequestHeader("X-CSRFToken", csrftoken);
+                xmlhttp.send("tel=" + str);
+            }
+            if (num == 0) {
+                num = 60;
+                document.getElementById('confirmButton').disabled = false;
+                document.getElementById('confirmButton').innerHTML = '获取验证码';
+                return;
+            }
+            document.getElementById('confirmButton').innerHTML = num + '秒后重新获取';
+            num = num - 1;
+
+            setTimeout(function () {
+                confirmTimer()
+            }, 1000);
+
+            // body...
+        }
+        function checknsubmit() {
+            var xmlhttp;
+            var str = document.getElementById('tel').value;
+            var code = document.getElementById('code').value;
+            var csrftoken = Cookies.get('csrftoken');
+            if (window.XMLHttpRequest) {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp = new XMLHttpRequest();
+            }
+            else {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var obj = JSON.parse(xmlhttp.responseText);
+                    var check_code = obj["check_code"];
+                    if (check_code == 0) {
+                        document.getElementById('confirmButton').className = 'btn btn-danger'
+                        document.getElementById("confirmButton").innerHTML = "验证码错误";
+                        document.getElementById('confirmButton').disabled = true;
+                    } else {
+                        document.getElementById('confirmButton').className = 'btn btn-info'
+                        document.getElementById("confirmButton").innerHTML = "验证码正确";
+                        document.getElementById("myForm").submit();
+                    }
+                }
+            }
+            xmlhttp.open("POST", "../checkmsg/", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.setRequestHeader("X-CSRFToken", csrftoken);
+            xmlhttp.send("tel=" + str + "&code=" + code);
+        }
+
+
+    </script>
+</head>
+<body>
+<img src="/static/logo.png" class="myImage">
+<form class="form-horizontal container myDiv" autocomplete="on" action="../order/" method="post" id="myForm">
+    {% csrf_token %}
+    <div class="form-group" name="name">
+        <label for="name" class="col-xs-2 myLabel">称呼</label>
+        <div class="col-xs-10">
+            <input type="text" class='form-control' id="name" placeholder="请输入昵称">
+        </div>
+    </div>
+
+    <div class="form-group" name="check">
+        <label for="check" class="col-xs-2 myLabel">类型</label>
+        <div class="col-xs-5 myRadio">
+            <input type="radio" name="check" id="radio1" value="B">
+            <span>
+                        <label for="radio1">血液检测</label>
+                    </span>
+        </div>
+        <div class="col-xs-5 myRadio">
+            <input type="radio" name="check" id="radio2" value="S">
+            <span>
+                        <label for="radio2">唾液检测</label>
+                    </span>
+        </div>
+    </div>
+
+    <div class="form-group" name="qq">
+        <label for="qq" class="col-xs-2 myLabel">QQ</label>
+        <div class="col-xs-10">
+            <input type="number" class='form-control' id="qq" placeholder="请输入QQ号">
+        </div>
+    </div>
+
+    <div class="form-group" name="email">
+        <label for="email" class="col-xs-2 myLabel">Email</label>
+        <div class="col-xs-10">
+            <input type="email" class='form-control' id="email" placeholder="请输入Email">
+        </div>
+    </div>
+
+
+    <div class="form-group" name="tel">
+        <label for="tel" class="col-xs-2 myLabel">电话</label>
+        <div class="col-xs-10">
+            <input type="tel" class='form-control' id="tel" placeholder="请输入电话号码">
+        </div>
+    </div>
+
+    <div class="form-group" name="confirm">
+        <label for="confirm" class="col-xs-2 myLabel">验证</label>
+        <div class="col-xs-10">
+            <div class="input-group">
+                <input type="number" class='form-control' id="code" placeholder="请输入验证码">
+                <span class="input-group-btn">
+                    <button class="btn btn-info" type="button" id="confirmButton" onclick="confirmTimer()">获取验证码</button>
+                </span>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div>
+        <button type="button" class="btn btn-success btn-block" id="sb" onclick="checknsubmit()">确定</button>
+        <button type="button" class="btn btn-default btn-block">返回</button>
+    </div>
+</form>
+
+</body>
+</html>
