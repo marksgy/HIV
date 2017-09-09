@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'e&d-%ht)mkjl*7p*!7niyh54xsdbdrl)*qg3)(_k@kk1+ae753'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['106.14.165.161']
 
 
 # Application definition
@@ -79,7 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'HIV',
-        'USER': 'admin',
+        'USER': 'mark',
         'PASSWORD':'10696666'
     }
 }
@@ -122,3 +122,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(os.path.dirname(__file__),'static')
