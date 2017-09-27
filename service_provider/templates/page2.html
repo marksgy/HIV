@@ -131,7 +131,21 @@
                     </span>
         </div>
     </div>
-
+    <div class="form-group" name="times">
+        <label for="check" class="col-xs-2 myLabel">次数</label>
+        <div class="col-xs-5 myRadio">
+            <input type="radio" name="check" id="radio1" value="1">
+            <span>
+                        <label for="radio1">1</label>
+                    </span>
+        </div>
+        <div class="col-xs-5 myRadio">
+            <input type="radio" name="check" id="radio2" value="2">
+            <span>
+                        <label for="radio2">2</label>
+                    </span>
+        </div>
+    </div>
     <div class="form-group" name="qq">
         <label for="qq" class="col-xs-2 myLabel">QQ</label>
         <div class="col-xs-10">
@@ -160,7 +174,8 @@
             <div class="input-group">
                 <input type="number" class='form-control' id="code" placeholder="请输入验证码">
                 <span class="input-group-btn">
-                    <button class="btn btn-info" type="button" id="confirmButton" onclick="confirmTimer()">获取验证码</button>
+                    <button class="btn btn-info" type="button" id="confirmButton"
+                            onclick="confirmTimer()">获取验证码</button>
                 </span>
             </div>
 
@@ -169,9 +184,9 @@
 
     </div>
 
-    <div>
-        <button type="button" class="btn btn-success btn-block" id="sb" onclick="checknsubmit()">确定</button>
-        <button type="button" class="btn btn-default btn-block">返回</button>
+    <div class="form-group" style="margin-bottom: 60px">
+        <button type="button" class="btn btn-success col-xs-4 " style="margin-left:  5%;margin-right: 1%; width: 44%;" id="sb" onclick="checknsubmit()">确定</button>
+        <button type="button" class="btn btn-default col-xs-4 " style="margin-left:  1%;width: 44%;">返回</button>
     </div>
 </form>
 

@@ -21,6 +21,11 @@ class OrderInfo(models.Model):
         ('S', '唾检'),
     )
     methods = models.CharField(max_length=1, choices=CHECK_CHOICES)
+    CHECK_TIMES = (
+        (1, '1'),
+        (2, '2'),
+    )
+    check_times = models.IntegerField(choices=CHECK_TIMES)
     time = models.TimeField(default=timezone.now)
     DAY_IN_WEEK = (
         ("1", "星期一"),

@@ -32,17 +32,16 @@ class People(models.Model):
 
 class Time(models.Model):
     DAY_IN_WEEK=(
-        ("1", "星期一"),
-        ("2", "星期二"),
-        ("3", "星期三"),
-        ("4", "星期四"),
-        ("5", "星期五"),
-        ("6", "星期六"),
-        ("7", "星期天"),
+        (1, "星期一"),
+        (2, "星期二"),
+        (3, "星期三"),
+        (4, "星期四"),
+        (5, "星期五"),
+        (6, "星期六"),
+        (7, "星期天"),
     )
-    day_in_week=models.CharField(max_length=1,choices=DAY_IN_WEEK)
-    time_begin=models.TimeField(default=timezone.now)
-    time_end=models.TimeField(default=timezone.now)
+    day_in_week=models.IntegerField(choices=DAY_IN_WEEK)
+    time=models.IntegerField()
     people=models.ForeignKey(People)
 
 

@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, render_to_response
 from django.views.decorators.csrf import csrf_protect
 
-from service_provider.myFuncs.mapFunc import place_lonlat, place_time
+from service_provider.myFuncs.mapFunc import place_time
 from service_provider.myFuncs.order import getOrder
 from service_provider.myFuncs.signupFunc import signUpCheck,signUpDb
 from service_provider.myFuncs.index import welcomePage
@@ -17,7 +17,7 @@ def map(request):
     places=Place.objects.values_list('place_name',flat=True)
 
     places_time_json=place_time(places)
-    places_lonlat_json=place_lonlat(places)
+
 
     return render(request,'map.html',{'places_time_json':places_time_json,'places_lonlat_json':places_lonlat_json})
 
